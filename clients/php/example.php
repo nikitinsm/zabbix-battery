@@ -5,19 +5,23 @@ require_once 'includes/jsonRPCClient.php';
 
 $client = new jsonRPCClient(JSON_RPC_SERVER);
 
-//Get all metrics
+// Get all metrics
 $client->{"battery.get_data"}();
 
-//Add new metric (name, value (int or float))
+// Get all metrics by name
+$client->{"battery.get_data"}('name');
+
+// Add new metric (name, value (int or float))
+// Use notification for faster interaction
 $client->setRPCNotification(true);
 $client->{"battery.charge"}('name', 1);
 $client->setRPCNotification(false);
 
-//Get and flush average metric value
+// Get and flush average metric value
 $client->{"battery.discharge"}('test');
 
-//Get and flush minimal metric value
+// Get and flush minimal metric value
 $client->{"battery.discharge"}('test', 'min');
 
-//Get and flush maximum metric value
+// Get and flush maximum metric value
 $client->{"battery.discharge"}('test', 'max');
