@@ -8,7 +8,7 @@ application = tornado.web.Application\
     ( [ (r"/json-rpc/", JsonRpcBundleHandler)
       ,
       ]
-    , debug=True
+    #, debug=True
     )
 application.listen(8888)
 tornado.ioloop.IOLoop.instance().start()
