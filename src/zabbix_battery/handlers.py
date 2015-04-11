@@ -21,7 +21,6 @@ class Battery(object):
     def charge(self, name, value):
         if name not in self.data:
             self.data[name] = default_row()
-
         self.data[name]['sum'] = (self.data[name]['sum'] or 0) + value
         self.data[name]['count'] = (self.data[name]['count'] or 0) + 1
         self.data[name]['min'] = value \
@@ -30,15 +29,11 @@ class Battery(object):
         self.data[name]['max'] = value \
             if self.data[name]['max'] is None or value > self.data[name]['max'] \
             else self.data[name]['max']
-
         return True
 
     def discharge(self, name, value_type='avg'):
         assert value_type in ('avg', 'min', 'max')
-
         data = self.data.get(name) or default_row()
-
-
         if value_type == 'avg' and data['count']:
             sum_val = data['sum'] or 0
             count = data['count'] or 0
@@ -47,12 +42,9 @@ class Battery(object):
             data['sum'] = None
             data['count'] = None
             return result_precised or 0
-
         result = data.get(value_type)
-
         if value_type != 'avg':
             data[value_type] = None
-
         return result or 0
 
     def get_data(self, name=None):
