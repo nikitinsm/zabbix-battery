@@ -1,9 +1,13 @@
 <?php
-define('JSON_RPC_SERVER', 'http://localhost:8888/json-rpc/');
-
 require_once 'includes/jsonRPCClient.php';
 
+
+define('JSON_RPC_SERVER', 'http://localhost:8888/json-rpc/');
+
+
 $client = new jsonRPCClient(JSON_RPC_SERVER);
+
+// Usage above:
 
 // Get all metrics
 $client->{"battery.get_data"}();
