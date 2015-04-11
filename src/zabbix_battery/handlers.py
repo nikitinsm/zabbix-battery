@@ -49,7 +49,9 @@ class Battery(object):
             return result_precised or 0
 
         result = data.get(value_type)
-        data[value_type] = None
+
+        if value_type != 'avg':
+            data[value_type] = None
 
         return result or 0
 

@@ -20,4 +20,4 @@ $client->{"battery.discharge"}('test');
 $client->{"battery.discharge"}('test', 'min');
 
 //Get and flush maximum metric value
-$client->{"battery.discharge"}('test', 'min');
+$client->{"battery.discharge"}('test', 'max');
