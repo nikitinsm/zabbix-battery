@@ -19,6 +19,11 @@ class Battery(object):
         self.data = dict()
 
     def charge(self, name, value):
+        try:
+            value = int(value)
+        except ValueError:
+            value = float(value)
+
         if name not in self.data:
             self.data[name] = default_row()
         self.data[name]['sum'] = (self.data[name]['sum'] or 0) + value
@@ -37,8 +42,8 @@ class Battery(object):
         if value_type == 'avg' and data['count']:
             sum_val = data['sum'] or 0
             count = data['count'] or 0
-            result = int(sum_val / float(count))
-            result_precised = (result * (10 ** self.float_precision)) / float(10 ** self.float_precision)
+            result = sum_val / float(count)
+            result_precised = int(result * (10 ** self.float_precision)) / float(10 ** self.float_precision)
             data['sum'] = None
             data['count'] = None
             return result_precised or 0
