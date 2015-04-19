@@ -37,7 +37,7 @@ class Battery(object):
         return True
 
     def discharge(self, name, value_type='avg'):
-        assert value_type in ('avg', 'min', 'max')
+        assert value_type in ('avg', 'min', 'max', 'sum')
         data = self.data.get(name) or default_row()
         if value_type == 'avg' and data['count']:
             sum_val = data['sum'] or 0
@@ -47,6 +47,11 @@ class Battery(object):
             data['sum'] = None
             data['count'] = None
             return result_precised or 0
+        if value_type == 'sum':
+            result = data['sum']
+            data['sum'] = None
+            data['count'] = None
+            return result or 0
         result = data.get(value_type)
         if value_type != 'avg':
             data[value_type] = None
