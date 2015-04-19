@@ -5,7 +5,7 @@ from setuptools import find_packages
 
 
 setup\
-    ( name='Zabbix battery'
+    ( name='zabbix_battery'
     , version='1.0'
     , description='Simple JSON Server as temporary zabbix metrics storage'
     , author='Sergey Nikitin'
