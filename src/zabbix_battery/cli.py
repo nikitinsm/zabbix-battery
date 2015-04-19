@@ -7,15 +7,21 @@ command_line_parser = argparse.ArgumentParser\
     ( description='Make JSON-RPC call to server'
     )
 command_line_parser.add_argument\
-    ( 'method'
-    , type=str
-    , help='JSON-RPC method name'
-    )
-command_line_parser.add_argument\
     ( '--extract'
     , type=str
     , nargs='?'
     , help='JSON-RPC extract single value (simple path)'
+    )
+command_line_parser.add_argument\
+    ( '--coerce'
+    , choices=['int', 'float']
+    , nargs='?'
+    , help='JSON-RPC coerce result value to python type example: (int, float, str and etc)'
+    )
+command_line_parser.add_argument\
+    ( 'method'
+    , type=str
+    , help='JSON-RPC method name'
     )
 command_line_parser.add_argument\
     ( 'params'
@@ -24,6 +30,11 @@ command_line_parser.add_argument\
     , help='JSON-RPC method position args'
     )
 
+
+CORCE_MAP = \
+    { 'int': int
+    , 'float': float
+    }
 
 
 def json_rpc_call(method, host='localhost', port='8888', params=None):
@@ -53,13 +64,14 @@ def get(data, path, default=None):
             return default
     return result
 
-
 def main():
     args = command_line_parser.parse_args()
     result = json_rpc_call(args.method, params=args.params)
 
     if args.extract:
         result = get(result, args.extract)
+        if args.coerce:
+            result = CORCE_MAP[args.coerce](result)
 
     return result
 

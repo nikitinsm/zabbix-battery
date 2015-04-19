@@ -46,4 +46,4 @@ _$ python -m zabbix_battery.cli battery.discharge name_
     
 _$ python -m zabbix_battery.cli battery.discharge name --extract=result_
     
-    0
+    1.0 // equal to operation {'result': 1.0}.get('result')
