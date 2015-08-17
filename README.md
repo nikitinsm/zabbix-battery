@@ -57,5 +57,5 @@ _build_
     
 _run_
     
-    docker run --name -d zabbix-battery -it -p 8000:80 zabbix-battery
+    docker run -d --name zabbix-battery -p 8000:80 zabbix-battery
     
