@@ -47,3 +47,15 @@ _$ python -m zabbix_battery.cli battery.discharge name_
 _$ python -m zabbix_battery.cli battery.discharge name --extract=result_
     
     1.0 // equal to operation {'result': 1.0}.get('result')
+    
+Docker
+------
+
+_build_
+    
+    docker build -t zabbix-battery . 
+    
+_run_
+    
+    docker run --name -d zabbix-battery -it -p 8000:80 zabbix-battery
+    

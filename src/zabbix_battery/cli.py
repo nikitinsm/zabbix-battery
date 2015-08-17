@@ -19,6 +19,18 @@ command_line_parser.add_argument\
     , help='JSON-RPC coerce result value to python type example: (int, float, str and etc)'
     )
 command_line_parser.add_argument\
+    ( '--host'
+    , type=str
+    , nargs='?'
+    , help='server host'
+    )
+command_line_parser.add_argument\
+    ( '--port'
+    , type=int
+    , nargs='?'
+    , help='server port'
+    )
+command_line_parser.add_argument\
     ( 'method'
     , type=str
     , help='JSON-RPC method name'
@@ -37,8 +49,11 @@ CORCE_MAP = \
     }
 
 
-def json_rpc_call(method, host='localhost', port='8888', params=None):
-    url = 'http://%s:%s/json-rpc/' % (host, port)
+def json_rpc_call(method, host=None, port=None, params=None):
+    host = host or 'localhost'
+    port = port or 80
+
+    url = 'http://%s:%d/json-rpc/' % (host, port)
     
     json_request =\
         { "id": "1"
@@ -66,7 +81,12 @@ def get(data, path, default=None):
 
 def main():
     args = command_line_parser.parse_args()
-    result = json_rpc_call(args.method, params=args.params)
+    result = json_rpc_call\
+        ( args.method
+        , host=args.host
+        , port=args.port
+        , params=args.params
+        )
 
     if args.extract:
         result = get(result, args.extract)
